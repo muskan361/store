@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple E-Commerce Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #35424a;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+        nav a:hover {
+            background: #e8491d;
+            color: white;
+        }
+        .auth-links {
+            margin-top: 10px;
+        }
+        .auth-links a {
+            margin: 0 10px;
+            color: #e8491d;
+            cursor: pointer;
+        }
+        .products {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .product {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+        }
+        button {
+            background: #35424a;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #e8491d;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background: #35424a;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 5px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My E-Commerce Store</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Cart</a></li>
+            </ul>
+        </nav>
+        <div class="auth-links">
+            <a id="loginLink">Login</a> | <a id="signupLink">Sign Up</a> 
+            | <a id="forgetPasswordLink">Forget password</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="products">
+            <article class="product">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOk4leOggKU7NoTTs-oY76RvPTh6ny_dR38A&s" alt="Product 1">
+                <h2>Product 1</h2>
+                <p>$10.00</p>
+                <button>Add to Cart</button>
+            </article>
+            <article class="product">
+                <img src="https://www.thespruce.com/thmb/X1C5BBhhYBNHJBouDqtgtj4Or4g=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/MaryPatton_June2022-17-2faffc328c2c460da954c7a3fc251438.jpg" alt="Product 2">
+                <h2>Product 2</h2>
+                <p>$20.00</p>
+                <button>Add to Cart</button>
+            </article>
+            <article class="product">
+                <img src="https://www.thespruce.com/thmb/fsIQfQhw4cJPjTnb-ufCxSSCrwM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/EdgerlyPlace_007-1-8106e7f3aed04e81bddde382071889be.jpg" alt="Product 3">
+                <h2>Product 3</h2>
+                <p>$30.00</p>
+                <button>Add to Cart</button>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My E-Commerce Store</p>
+    </footer>
+
+    <!-- Modal for Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Login</h2>
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="loginBtn">Login</button>
+        </div>
+    </div>
+
+    <!-- Modal for Signup -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeSignupModal">&times;</span>
+            <h2>Sign Up</h2>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <button id="signupBtn">Sign Up</button>
+        </div>
+    </div>
+
+    <!-- Modal for Forget Password -->
+    <div id="forgetPasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeForgetPasswordModal">&times;</span>
+            <h2>Reset Password</h2>
+            <p>Enter your email or mobile number:</p>
+            <input type="text" id="contactInfo" placeholder="Email or Mobile" required>
+            <button id="sendOtpBtn">Send OTP</button>
+            <p id="otpMessage" style="display: none;">OTP sent! Check your email/mobile.</p>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const loginModal = document.getElementById("loginModal");
+        const signupModal = document.getElementById("signupModal");
+        const forgetPasswordModal = document.getElementById("forgetPasswordModal");
+
+        const openLoginModal = document.getElementById("loginLink");
+        const openSignupModal = document.getElementById("signupLink");
+        const openForgetPasswordModal = document.getElementById("forgetPasswordLink");
+
+        const closeLoginModal = document.getElementById("closeLoginModal");
+        const closeSignupModal = document.getElementById("closeSignupModal");
+        const closeForgetPasswordModal = document.getElementById("closeForgetPasswordModal");
+
+        // Open modals
+        openLoginModal.onclick = function() {
+            loginModal.style.display = "block";
+        }
+
+        openSignupModal.onclick = function() {
+            signupModal.style.display = "block";
+        }
+
+        openForgetPasswordModal.onclick = function() {
+            forgetPasswordModal.style.display = "block";
+        }
+
+        // Close modals
+        closeLoginModal.onclick = function() {
+            loginModal.style.display = "none";
+        }
+
+        closeSignupModal.onclick = function() {
+            signupModal.style.display = "none";
+        }
+
+        closeForgetPasswordModal.onclick = function() {
+            forgetPasswordModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+            if (event.target == signupModal) {
+                signupModal.style.display = "none";
+            }
+            if (event.target == forgetPasswordModal) {
+                forgetPasswordModal.style.display = "none";
+            }
+        }
+
+        // Send OTP functionality (for Forget Password)
+        const sendOtpBtn = document.getElementById("sendOtpBtn");
+        const otpMessage = document.getElementById("otpMessage");
+
+        sendOtpBtn.onclick = function() {
+            const contactInfo = document.getElementById("contactInfo").value;
+            if (contactInfo) {
+                // Logic to send OTP would go here
+                otpMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
